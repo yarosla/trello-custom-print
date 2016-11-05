@@ -1,0 +1,10 @@
+<h3>Boards list</h3>
+<ul>
+  <li *ngFor="let board of boards | async">
+    <a [routerLink]="['/boards', board.id]">
+      {{ board.name }}
+    </a>
+  </li>
+</ul>
+
+<router-outlet></router-outlet>
