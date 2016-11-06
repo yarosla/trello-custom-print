@@ -4,3 +4,26 @@ $icon-font-path: '~bootstrap-sass/assets/fonts/bootstrap/';
 $font-family-base: $font-family-serif;
 
 @import '~bootstrap-sass/assets/stylesheets/bootstrap';
+
+// generate special 'print' grid class
+
+@mixin make-print-grid-columns {
+  $list: "";
+  @for $i from 1 through $grid-columns {
+    $list: "#{$list}, .col-print-#{$i}";
+  }
+  #{$list} {
+    position: relative;
+    // Prevent columns from collapsing when empty
+    min-height: 1px;
+    // Inner gutter via padding
+    padding-left:  ceil(($grid-gutter-width / 2));
+    padding-right: floor(($grid-gutter-width / 2));
+  }
+}
+
+@include make-print-grid-columns;
+
+@media print {
+  @include make-grid(print);
+}

@@ -27,6 +27,7 @@ export class BoardDetailComponent implements OnInit {
             list.cards = list.cards || [];
             list.cards.push(card);
         }
+        board.lists = board.lists.filter((l)=>!l.closed);
         console.log('board', board);
         return board;
     }
