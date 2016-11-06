@@ -5,7 +5,7 @@ import {TrelloAuthGuard} from './trello-auth.guard';
 import {BoardDetailComponent} from './board-detail.component';
 
 export const rootRouterConfig: Routes = [
-    {path: '', redirectTo: 'auth', pathMatch: 'full'},
+    {path: '', redirectTo: 'boards', pathMatch: 'full'},
     {path: 'auth', component: TrelloAuthComponent},
     {
         path: 'boards',

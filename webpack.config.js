@@ -13,6 +13,14 @@ var contextDir = path.join(__dirname, 'src'),
     outputDir = process.argv.find(function(o) { return o.startsWith('-p') }) ? 'dist.min' : 'dist';
 
 console.log('output dir:', outputDir);
+
+if (!API_KEY) {
+    // API_KEY not found in environment
+    console.log('reading API_KEY from trello-api-key.json');
+    // trello-api-key.json shall contain just the key enclosed in double quotes
+    API_KEY = require('./trello-api-key.json');
+}
+
 console.log('API key:', API_KEY);
 
 module.exports = {
@@ -52,8 +60,15 @@ module.exports = {
         new webpack.optimize.CommonsChunkPlugin({name: ['app', 'vendor'], minChunks: Infinity}),
         new ExtractTextPlugin('[name].css', {allChunks: true}),
         new CopyWebpackPlugin([
-            {from: 'index.htm'}
-        ])
+            {from: 'index.html'}
+        ]),
+        function() {
+            // print timestamp every time when build is triggered
+            this.plugin('watch-run', function(watching, callback) {
+                console.log('Begin compile at ' + new Date().toTimeString());
+                callback();
+            })
+        }
     ],
     sassLoader: {
         outputStyle: 'nested',

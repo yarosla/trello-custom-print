@@ -9,11 +9,16 @@ export class TrelloService {
     private apiKey: string;
     private token: string;
 
-    constructor(private http: Http) {}
+    constructor(private http: Http) {
+        this.apiKey = sessionStorage.getItem('trello-api-key');
+        this.token = sessionStorage.getItem('trello-token');
+    }
 
     authorize(apiKey: string, token: string) {
         this.apiKey = apiKey;
         this.token = token;
+        sessionStorage.setItem('trello-api-key', apiKey);
+        sessionStorage.setItem('trello-token', token);
     }
 
     isAuthorized(): boolean {

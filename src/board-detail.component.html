@@ -1,0 +1,12 @@
+<h3>{{board.name}}</h3>
+
+<div class="row">
+  <div class="col-md-3 trello-list" *ngFor="let list of board.lists; let index=index" [ngClass]="{'break':index%4==0}">
+    <h4>{{ list.name }}</h4>
+    <div class="trello-card" *ngFor="let card of list.cards">
+      <p class="name">{{ card.name }}</p>
+    </div>
+  </div>
+</div>
+
+<router-outlet></router-outlet>
