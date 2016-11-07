@@ -6,6 +6,8 @@ import {TrelloBoard} from './trello.interfaces';
 
 @Injectable()
 export class TrelloService {
+    // https://developers.trello.com/advanced-reference/board
+
     private apiKey: string;
     private token: string;
 

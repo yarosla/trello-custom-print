@@ -14,6 +14,9 @@ interface TrelloMessageEvent {
     template: '<p>{{message}}</p><router-outlet></router-outlet>'
 })
 export class TrelloAuthComponent implements OnInit {
+    // https://developers.trello.com/authorize
+    // https://trello.com/1/client.coffee
+
     message: string;
 
     constructor(private trello: TrelloService, private router: Router) {
@@ -21,9 +24,8 @@ export class TrelloAuthComponent implements OnInit {
 
     @HostListener('window:message', ['$event'])
     private onMessage(evt: TrelloMessageEvent): void {
-        console.log('auth event', evt);
         evt.source.close();
-        if (evt.data) {
+        if (evt.data && /[0-9a-f]{64}/.test(evt.data)) {
             this.trello.authorize(TRELLO_API_KEY, evt.data);
             this.router.navigate(['boards']);
         }
@@ -34,6 +36,7 @@ export class TrelloAuthComponent implements OnInit {
 
     ngOnInit(): void {
         this.message = 'Requesting access...';
-        window.open('https://trello.com/1/authorize?callback_method=postMessage&return_url=http://localhost:8055&scope=read&expiration=never&name=Print+Trello&key=' + TRELLO_API_KEY, 'trelloAuth', 'width=800,height=600');
+        let origin = window.location.origin;
+        window.open('https://trello.com/1/authorize?callback_method=postMessage&return_url=' + origin + '&scope=read&expiration=never&name=Trello+Custom+Print&key=' + TRELLO_API_KEY, 'trelloAuth', 'width=800,height=600');
     }
 }
