@@ -1,0 +1,9 @@
+<div class="trello-card">
+  <p class="name">{{ card.name }}</p>
+  <p class="desc" *ngIf="card.desc">{{ card.desc }}</p>
+  <ul class="checklist" *ngFor="let checklist of card.checklists">
+    <li class="checkitem" *ngFor="let checkitem of checklist.checkItems" [ngClass]="{complete:checkitem.state=='complete'}">
+      {{checkitem.name}}
+    </li>
+  </ul>
+</div>

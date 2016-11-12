@@ -1,5 +1,11 @@
 .trello-list {
+  margin-bottom: 40px;
+  overflow: hidden;
   &.break {
     clear: left;
   }
+}
+
+@media print {
+  .no-print { display: none; }
 }

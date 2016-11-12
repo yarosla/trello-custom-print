@@ -3,9 +3,7 @@
 <div class="row">
   <div class="col-md-3 col-print-3 trello-list" *ngFor="let list of board.lists; let index=index" [ngClass]="{'break':index%4==0}">
     <h4>{{ list.name }}</h4>
-    <div class="trello-card" *ngFor="let card of list.cards">
-      <p class="name">{{ card.name }}</p>
-    </div>
+    <card-detail [card]="card" [type]="cardType" *ngFor="let card of list.cards"></card-detail>
   </div>
 </div>
 

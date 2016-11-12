@@ -11,9 +11,14 @@ import {TrelloService} from './trello.service';
 import {TrelloAuthGuard} from './trello-auth.guard';
 import {TrelloAuthComponent} from './trello-auth.component';
 import {BoardDetailComponent} from './board-detail.component';
+import {CardDetailWrapperComponent} from './card-detail-wrapper.component';
+import {BasicCardDetailComponent} from './cards/basic-card-detail.component';
 
 @NgModule({
-    declarations: [AppComponent, BoardsListComponent, BoardDetailComponent, TrelloAuthComponent],
+    declarations: [AppComponent, TrelloAuthComponent,
+        BoardsListComponent, BoardDetailComponent, CardDetailWrapperComponent,
+        BasicCardDetailComponent],
+    entryComponents: [BasicCardDetailComponent],
     imports: [BrowserModule, FormsModule, HttpModule, RouterModule.forRoot(rootRouterConfig)],
     providers: [TrelloService, TrelloAuthGuard, {provide: LocationStrategy, useClass: HashLocationStrategy}],
     bootstrap: [AppComponent]

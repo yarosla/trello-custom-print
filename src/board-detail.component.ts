@@ -1,7 +1,9 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, Type} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {TrelloService} from './trello.service';
 import {TrelloBoard} from './trello.interfaces';
+import {BasicCardDetailComponent} from './cards/basic-card-detail.component';
+import {CardDetailComponent} from './card-detail-wrapper.component';
 
 @Component({
     selector: 'board-detail',
@@ -9,6 +11,7 @@ import {TrelloBoard} from './trello.interfaces';
 })
 export class BoardDetailComponent implements OnInit {
     board: TrelloBoard = {id: null, name: null};
+    cardType: Type<CardDetailComponent> = BasicCardDetailComponent;
 
     constructor(private trello: TrelloService, private route: ActivatedRoute) {
     }
@@ -16,11 +19,11 @@ export class BoardDetailComponent implements OnInit {
     ngOnInit() {
         this.route.params.subscribe(params => {
             this.trello.fetchBoard(params['boardId'])
-                .subscribe((board) => {this.board = this.processBoard(board);});
+                .subscribe((board) => {this.board = this.preProcessBoard(board);});
         });
     }
 
-    private processBoard(board: TrelloBoard): TrelloBoard {
+    private preProcessBoard(board: TrelloBoard): TrelloBoard {
         for (let card of board.cards) {
             if (card.closed) continue;
             let list = board.lists.find((l) => l.id == card.idList);
