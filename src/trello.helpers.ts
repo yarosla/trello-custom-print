@@ -14,6 +14,7 @@ export class TrelloCustomFieldDecoder {
     fieldDefs: TrelloCustomFieldDef[] = [];
 
     constructor(board: TrelloBoard) {
+        if (!board.pluginData) return;
         let plugin = board.pluginData.find((pd) => pd.idPlugin == TRELLO_CUSTOM_FIELDS_PLUGIN_ID);
         if (!plugin) return;
         let fieldsEncoded = JSON.parse(plugin.value).fields as {[key: string]: any}[];

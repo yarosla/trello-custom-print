@@ -7,6 +7,7 @@ declare var TRELLO_API_KEY: string; // injected by webpack's DefinePlugin
 interface TrelloMessageEvent {
     data: string;
     source: Window;
+    origin: string;
 }
 
 @Component({
@@ -30,7 +31,8 @@ export class TrelloAuthComponent implements OnInit {
             this.router.navigate(['boards']);
         }
         else {
-            this.message = 'Auth failed';
+            if (evt.origin.indexOf('trello.com') >= 0)
+                this.message = 'Not authorized';
         }
     }
 
