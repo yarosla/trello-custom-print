@@ -1,0 +1,31 @@
+<form class="form-inline" *ngIf="settings">
+  <div>
+    <div class="form-group">
+      <label for="numColumns">Number of columns:</label>
+      <select class="form-control" id="numColumns" name="numColumns" [(ngModel)]="settings.numColumns">
+        <option>1</option>
+        <option>2</option>
+        <option>3</option>
+        <option>4</option>
+        <option>6</option>
+      </select>
+    </div>
+    <div class="checkbox" style="margin-left:20px;">
+      <label><input type="checkbox" [(ngModel)]="settings.showDesc" name="showDesc"> Show descriptions</label>
+    </div>
+    <div class="checkbox" style="margin-left:20px;">
+      <label><input type="checkbox" [(ngModel)]="settings.showChecklists" name="showChecklists"> Show checklists</label>
+    </div>
+    <div class="checkbox" style="margin-left:20px;">
+      <label><input type="checkbox" [(ngModel)]="settings.showCustomFields" name="showCustomFields"> Show custom fields</label>
+    </div>
+  </div>
+  <div>
+    <div class="form-group">
+      <label>Lists:</label>
+    </div>
+    <div class="checkbox" style="margin-left:10px;" *ngFor="let list of settings.lists">
+      <label><input type="checkbox" [(ngModel)]="list.show" name="showList"> {{list.name}}</label>
+    </div>
+  </div>
+</form>

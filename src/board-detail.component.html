@@ -1,10 +1,19 @@
-<h3>{{board.name}}</h3>
+<div *ngIf="board">
+  <div class="well well-sm no-print">
+    <button type="button" class="btn btn-default pull-right" (click)="print()">Print</button>
+    <board-settings [(settings)]="settings"></board-settings>
+  </div>
 
-<div class="row">
-  <div class="col-md-3 col-print-3 trello-list" *ngFor="let list of board.lists; let index=index" [ngClass]="{'break':index%4==0}">
-    <h4>{{ list.name }}</h4>
-    <card-detail [card]="card" [type]="cardType" *ngFor="let card of list.cards"></card-detail>
+  <h3>{{board.name}}</h3>
+
+  <div class="row">
+    <div class="col-md-{{12/settings.numColumns}} col-print-{{12/settings.numColumns}} trello-list"
+         *ngFor="let list of selectedLists; let index=index; trackBy:trackByLists"
+         [class.break]="index % settings.numColumns == 0">
+      <h4>{{ list.name }}</h4>
+      <card-detail [card]="card" [settings]="settings" [type]="settings.cardType"
+                   *ngFor="let card of list.cards; trackBy:trackByCards"></card-detail>
+    </div>
   </div>
 </div>
-
 <router-outlet></router-outlet>

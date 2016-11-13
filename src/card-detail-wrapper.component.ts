@@ -1,8 +1,10 @@
 import {Component, Input, ViewContainerRef, ViewChild, ComponentFactoryResolver, ComponentRef, Type, ChangeDetectorRef, OnChanges, OnDestroy, AfterViewInit} from '@angular/core';
 import {TrelloCard} from './trello.interfaces';
+import {BoardSettings} from './board-settings.component';
 
 export interface CardDetailComponent {
     card: TrelloCard;
+    settings: BoardSettings;
 }
 
 // Dynamic component selector implementation
@@ -15,6 +17,8 @@ export interface CardDetailComponent {
 export class CardDetailWrapperComponent implements CardDetailComponent, OnChanges, OnDestroy, AfterViewInit {
     @Input()
     card: TrelloCard;
+    @Input()
+    settings: BoardSettings;
     @Input()
     type: Type<CardDetailComponent>;
     @ViewChild('target', {read: ViewContainerRef})
@@ -34,8 +38,9 @@ export class CardDetailWrapperComponent implements CardDetailComponent, OnChange
 
         let factory = this.componentFactoryResolver.resolveComponentFactory(this.type);
         this.cmpRef = this.target.createComponent(factory) as ComponentRef<CardDetailComponent>;
-        // bind input
+        // bind inputs
         this.cmpRef.instance.card = this.card;
+        this.cmpRef.instance.settings = this.settings;
         this.changeDetector.detectChanges();
         // bind output
         // this.cmpRef.instance.someOutput.subscribe(val => doSomething());

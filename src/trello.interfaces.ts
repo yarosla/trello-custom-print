@@ -1,10 +1,3 @@
-export interface TrelloPluginData {
-    id: string;
-    idPlugin: string;
-    idModel: string;
-    value: string;
-}
-
 export interface TrelloChecklistItem {
     id: string;
     name: string;
@@ -17,11 +10,21 @@ export interface TrelloChecklist {
     checkItems?: TrelloChecklistItem[];
 }
 
-export interface TrelloList {
+export interface TrelloPluginData {
     id: string;
-    name: string;
-    closed: boolean;
-    cards?: TrelloCard[];
+    idPlugin: string;
+    idModel: string;
+    value: string;
+}
+
+export enum TrelloCustomFieldType {
+    TEXT, NUMBER, CHECKBOX, DATE, LIST
+}
+
+export interface TrelloCustomField {
+    label: string;
+    type: TrelloCustomFieldType;
+    value: any;
 }
 
 export interface TrelloCard {
@@ -35,6 +38,21 @@ export interface TrelloCard {
     labels?: Object[];
     checklists?: TrelloChecklist[];
     pluginData?: TrelloPluginData[];
+    customFields?: TrelloCustomField[];
+}
+
+export interface TrelloList {
+    id: string;
+    name: string;
+    closed: boolean;
+    cards?: TrelloCard[];
+}
+
+export interface TrelloBoardPluginData {
+    id: string;
+    idModel: string;
+    idPlugin: string;
+    value: string;
 }
 
 export interface TrelloBoard {
@@ -43,4 +61,5 @@ export interface TrelloBoard {
     cards?: TrelloCard[];
     lists?: TrelloList[];
     url?: string;
+    pluginData?: TrelloBoardPluginData[];
 }

@@ -13,9 +13,10 @@ import {TrelloAuthComponent} from './trello-auth.component';
 import {BoardDetailComponent} from './board-detail.component';
 import {CardDetailWrapperComponent} from './card-detail-wrapper.component';
 import {BasicCardDetailComponent} from './cards/basic-card-detail.component';
+import {BoardSettingsComponent} from './board-settings.component';
 
 @NgModule({
-    declarations: [AppComponent, TrelloAuthComponent,
+    declarations: [AppComponent, TrelloAuthComponent, BoardSettingsComponent,
         BoardsListComponent, BoardDetailComponent, CardDetailWrapperComponent,
         BasicCardDetailComponent],
     entryComponents: [BasicCardDetailComponent],

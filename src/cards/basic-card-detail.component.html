@@ -1,9 +1,17 @@
 <div class="trello-card">
   <p class="name">{{ card.name }}</p>
-  <p class="desc" *ngIf="card.desc">{{ card.desc }}</p>
-  <ul class="checklist" *ngFor="let checklist of card.checklists">
-    <li class="checkitem" *ngFor="let checkitem of checklist.checkItems" [ngClass]="{complete:checkitem.state=='complete'}">
-      {{checkitem.name}}
-    </li>
-  </ul>
+  <p class="desc" *ngIf="card.desc && settings?.showDesc">{{ card.desc }}</p>
+  <div *ngIf="settings?.showChecklists">
+    <ul class="checklist" *ngFor="let checklist of card.checklists">
+      <li class="checkitem" *ngFor="let checkitem of checklist.checkItems"
+          [class.complete]="checkitem.state=='complete'">
+        {{checkitem.name}}
+      </li>
+    </ul>
+  </div>
+  <div *ngIf="settings?.showCustomFields" class="custom-fields">
+    <span class="custom-field" *ngFor="let field of card.customFields">
+      {{field.label}} {{field.value}}
+    </span>
+  </div>
 </div>
