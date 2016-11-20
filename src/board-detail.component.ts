@@ -15,7 +15,7 @@ export class BoardDetailComponent implements OnInit {
     settings: BoardSettings;
 
     get selectedLists() {
-        return this.board.lists.filter((list, idx) => this.settings.lists[idx].show);
+        return this.board.lists.filter((list, idx) => this.settings.isShown(list));
     }
 
     constructor(private trello: TrelloService, private route: ActivatedRoute) {
@@ -40,6 +40,14 @@ export class BoardDetailComponent implements OnInit {
     //noinspection JSMethodCanBeStatic
     print() {
         window.print();
+    }
+
+    refresh() {
+        this.trello.fetchBoard(this.board.id)
+            .subscribe((board) => {
+                this.board = this.preProcessBoard(board);
+                this.settings.refresh(this.board);
+            });
     }
 
     private preProcessBoard(board: TrelloBoard): TrelloBoard {

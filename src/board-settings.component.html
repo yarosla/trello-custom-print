@@ -11,6 +11,9 @@
       </select>
     </div>
     <div class="checkbox" style="margin-left:20px;">
+      <label><input type="checkbox" [(ngModel)]="settings.showBoardTitle" name="showBoardTitle"> Show board title</label>
+    </div>
+    <div class="checkbox" style="margin-left:20px;">
       <label><input type="checkbox" [(ngModel)]="settings.showDesc" name="showDesc"> Show descriptions</label>
     </div>
     <div class="checkbox" style="margin-left:20px;">
@@ -25,7 +28,7 @@
       <label>Lists:</label>
     </div>
     <div class="checkbox" style="margin-left:10px;" *ngFor="let list of settings.lists">
-      <label><input type="checkbox" [(ngModel)]="list.show" name="showList"> {{list.name}}</label>
+      <label><input type="checkbox" [(ngModel)]="list.show" name="showList-{{list.id}}"> {{list.name}}</label>
     </div>
   </div>
 </form>

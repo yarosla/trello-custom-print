@@ -15,3 +15,18 @@ Customize print layout of your *Trello.com* boards.
 
 - further customize layout options (see `board-settings.component`)
 - develop more card templates (see `src/cards` folder)
+
+### Building
+
+    npm install -g typescript webpack
+    npm install
+
+Get your Trello API key from here: https://trello.com/app-key
+
+Debug:
+
+    API_KEY=xxx webpack -d --watch
+
+Production:
+
+    API_KEY=xxx webpack -p

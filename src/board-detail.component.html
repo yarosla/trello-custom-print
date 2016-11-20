@@ -1,10 +1,13 @@
 <div *ngIf="board">
   <div class="well well-sm no-print">
-    <button type="button" class="btn btn-default pull-right" (click)="print()">Print</button>
+    <div class="pull-right">
+      <button type="button" class="btn btn-default" (click)="refresh()" title="Refresh board data"><i class="glyphicon glyphicon-refresh"></i></button>
+      <button type="button" class="btn btn-default" (click)="print()" title="Print"><i class="glyphicon glyphicon-print"></i></button>
+    </div>
     <board-settings [(settings)]="settings"></board-settings>
   </div>
 
-  <h3>{{board.name}}</h3>
+  <h3 *ngIf="settings.showBoardTitle">{{board.name}}</h3>
 
   <div class="row">
     <div class="col-md-{{12/settings.numColumns}} col-print-{{12/settings.numColumns}} trello-list"
