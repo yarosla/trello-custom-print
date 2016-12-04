@@ -27,7 +27,7 @@ export class TrelloService {
         return !!this.token;
     }
 
-    listBoards(): Observable<TrelloBoard> {
+    listBoards(): Observable<TrelloBoard[]> {
         return this.callTrello('/members/me', {boards: 'open'})
             .map((me) => me.boards);
     }

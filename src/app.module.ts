@@ -14,6 +14,7 @@ import {BoardDetailComponent} from './board-detail.component';
 import {CardDetailWrapperComponent} from './card-detail-wrapper.component';
 import {BasicCardDetailComponent} from './cards/basic-card-detail.component';
 import {BoardSettingsComponent} from './board-settings.component';
+import {SettingsService} from './settings.service';
 
 @NgModule({
     declarations: [AppComponent, TrelloAuthComponent, BoardSettingsComponent,
@@ -21,7 +22,7 @@ import {BoardSettingsComponent} from './board-settings.component';
         BasicCardDetailComponent],
     entryComponents: [BasicCardDetailComponent],
     imports: [BrowserModule, FormsModule, HttpModule, RouterModule.forRoot(rootRouterConfig)],
-    providers: [TrelloService, TrelloAuthGuard, {provide: LocationStrategy, useClass: HashLocationStrategy}],
+    providers: [TrelloService, TrelloAuthGuard, SettingsService, {provide: LocationStrategy, useClass: HashLocationStrategy}],
     bootstrap: [AppComponent]
 })
 export class AppModule {

@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {TrelloService} from './trello.service';
 import {TrelloBoard, TrelloList, TrelloCard} from './trello.interfaces';
-import {BoardSettings} from './board-settings.component';
+import {BoardSettings, SettingsService} from './settings.service';
 import {TrelloCustomFieldDecoder} from './trello.helpers';
 
 
@@ -15,10 +15,10 @@ export class BoardDetailComponent implements OnInit {
     settings: BoardSettings;
 
     get selectedLists() {
-        return this.board.lists.filter((list, idx) => this.settings.isShown(list));
+        return this.board.lists.filter((list, idx) => this.settings.showList[list.id]);
     }
 
-    constructor(private trello: TrelloService, private route: ActivatedRoute) {
+    constructor(private trello: TrelloService, private settingsService: SettingsService, private route: ActivatedRoute) {
     }
 
     //noinspection JSMethodCanBeStatic
@@ -32,9 +32,14 @@ export class BoardDetailComponent implements OnInit {
             this.trello.fetchBoard(params['boardId'])
                 .subscribe((board) => {
                     this.board = this.preProcessBoard(board);
-                    this.settings = new BoardSettings(this.board);
+                    this.settings = this.settingsService.loadSettings();
+                    this.settings.update(this.board);
                 });
         });
+    }
+
+    settingsChanged(settings: BoardSettings) {
+        this.settingsService.saveSettings(settings);
     }
 
     //noinspection JSMethodCanBeStatic
@@ -46,7 +51,7 @@ export class BoardDetailComponent implements OnInit {
         this.trello.fetchBoard(this.board.id)
             .subscribe((board) => {
                 this.board = this.preProcessBoard(board);
-                this.settings.refresh(this.board);
+                this.settings.update(this.board);
             });
     }
 
@@ -60,7 +65,7 @@ export class BoardDetailComponent implements OnInit {
             list.cards.push(card);
             this.preProcessCard(card, customFieldDecoder);
         }
-        board.lists = board.lists.filter((l)=>!l.closed);
+        board.lists = board.lists.filter((l) => !l.closed);
         console.log('board', board);
         return board;
     }

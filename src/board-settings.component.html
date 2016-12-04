@@ -1,4 +1,4 @@
-<form class="form-inline" *ngIf="settings">
+<form class="form-inline" *ngIf="settings" #form="ngForm">
   <div>
     <div class="form-group">
       <label for="numColumns">Number of columns:</label>
@@ -27,8 +27,8 @@
     <div class="form-group">
       <label>Lists:</label>
     </div>
-    <div class="checkbox" style="margin-left:10px;" *ngFor="let list of settings.lists">
-      <label><input type="checkbox" [(ngModel)]="list.show" name="showList-{{list.id}}"> {{list.name}}</label>
+    <div class="checkbox" style="margin-left:10px;" *ngFor="let list of board.lists">
+      <label><input type="checkbox" [(ngModel)]="settings.showList[list.id]" name="showList-{{list.id}}"> {{list.name}}</label>
     </div>
   </div>
 </form>

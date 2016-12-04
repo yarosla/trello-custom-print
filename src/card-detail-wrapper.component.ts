@@ -1,6 +1,6 @@
 import {Component, Input, ViewContainerRef, ViewChild, ComponentFactoryResolver, ComponentRef, Type, ChangeDetectorRef, OnChanges, OnDestroy, AfterViewInit} from '@angular/core';
 import {TrelloCard} from './trello.interfaces';
-import {BoardSettings} from './board-settings.component';
+import {BoardSettings} from './settings.service';
 
 export interface CardDetailComponent {
     card: TrelloCard;

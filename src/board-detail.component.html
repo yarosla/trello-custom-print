@@ -4,7 +4,7 @@
       <button type="button" class="btn btn-default" (click)="refresh()" title="Refresh board data"><i class="glyphicon glyphicon-refresh"></i></button>
       <button type="button" class="btn btn-default" (click)="print()" title="Print"><i class="glyphicon glyphicon-print"></i></button>
     </div>
-    <board-settings [(settings)]="settings"></board-settings>
+    <board-settings [settings]="settings" [board]="board" (settingsChanged)="settingsChanged($event)"></board-settings>
   </div>
 
   <h3 *ngIf="settings.showBoardTitle">{{board.name}}</h3>

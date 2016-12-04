@@ -1,7 +1,7 @@
 import {Component, Input} from '@angular/core';
 import {TrelloCard} from '../trello.interfaces';
 import {CardDetailComponent} from '../card-detail-wrapper.component';
-import {BoardSettings} from '../board-settings.component';
+import {BoardSettings} from '../settings.service';
 
 @Component({
     selector: 'basic-card-detail',

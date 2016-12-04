@@ -1,40 +1,8 @@
-import {Component, Input, Type} from '@angular/core';
-import {TrelloBoard, TrelloList} from './trello.interfaces';
-import {CardDetailComponent} from './card-detail-wrapper.component';
-import {BasicCardDetailComponent} from './cards/basic-card-detail.component';
-
-export class BoardSettings {
-    numColumns: number = 4;
-    showBoardTitle: boolean = true;
-    showDesc: boolean = true;
-    showChecklists: boolean = true;
-    showCustomFields: boolean = true;
-    lists?: {id: string, name: string, show: boolean}[];
-    cardType: Type<CardDetailComponent> = BasicCardDetailComponent;
-
-    constructor(board: TrelloBoard) {
-        this.refresh(board);
-    }
-
-    refresh(board: TrelloBoard) {
-        let oldLists = this.lists;
-        this.lists = [];
-        board.lists.forEach((list) => {
-            this.lists.push({id: list.id, name: list.name, show: wasShown(list)});
-        });
-
-        function wasShown(list: TrelloList): boolean {
-            if (!oldLists) return true; // shown by default
-            let oldList = oldLists.find((l)=>l.id == list.id);
-            return oldList ? oldList.show : true;
-        }
-    }
-
-    isShown(list: TrelloList): boolean {
-        let l = this.lists.find((l)=>l.id == list.id);
-        return l ? l.show : true;
-    }
-}
+import {Component, Input, ViewChild, AfterViewInit, Output, EventEmitter} from '@angular/core';
+import {BoardSettings} from './settings.service';
+import {TrelloBoard} from './trello.interfaces';
+import {NgForm} from '@angular/forms';
+import 'rxjs/add/operator/debounceTime';
 
 @Component({
     selector: 'board-settings',
@@ -42,7 +10,17 @@ export class BoardSettings {
     styles: [`
             `]
 })
-export class BoardSettingsComponent {
+export class BoardSettingsComponent implements AfterViewInit {
     @Input()
-    settings: BoardSettings;
+    private settings: BoardSettings;
+    @Input()
+    private board: TrelloBoard;
+    @Output()
+    private settingsChanged = new EventEmitter<BoardSettings>();
+    @ViewChild('form')
+    private form: NgForm;
+
+    ngAfterViewInit(): void {
+        this.form.valueChanges.debounceTime(10).subscribe((v) => this.settingsChanged.emit(this.settings));
+    }
 }
