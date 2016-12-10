@@ -4,6 +4,22 @@ Customize print layout of your *Trello.com* boards.
 
 **Working service is [>> here <<](https://yarosla.github.io/trello-custom-print/)**.
 
+### Features
+
+- select lists to print
+- choose number of columns (1 to 6)
+- optionally print descriptions, checklists, *custom fields*
+- apply markdown formatting
+
+### How to Use
+
+- give the app permission to read your boards (enable popup windows for this to work)
+- select board to print
+- adjust layout and visibility options
+- press print button
+
+About privacy: This is single page web app hosted on GitHub without any server side logic. So don't be afraid your data is intercepted or stored somewhere.
+
 ### Technical Details
 
 - built with Angular 2 & Bootstrap 3 using Webpack

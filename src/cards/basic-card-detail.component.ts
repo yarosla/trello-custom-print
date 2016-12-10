@@ -13,7 +13,8 @@ import {BoardSettings} from '../settings.service';
                     border-top:solid 1px #aaa;
                 }
                 .desc {font-size:80%; padding-left:20px;}
-                .checklist {font-size:80%; margin:0 0 10px; padding-left:20px;}
+                .checklist > p {font-size:80%; margin:0 0 5px;}
+                .checklist ul {font-size:80%; margin:0 0 10px; padding-left:20px;}
                 .complete {text-decoration:line-through;}
                 .custom-field {
                     font-size:80%; display:inline-block; 

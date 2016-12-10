@@ -15,11 +15,14 @@ import {CardDetailWrapperComponent} from './card-detail-wrapper.component';
 import {BasicCardDetailComponent} from './cards/basic-card-detail.component';
 import {BoardSettingsComponent} from './board-settings.component';
 import {SettingsService} from './settings.service';
+import {MarkdownDirective} from './markdown.directive';
 
 @NgModule({
     declarations: [AppComponent, TrelloAuthComponent, BoardSettingsComponent,
         BoardsListComponent, BoardDetailComponent, CardDetailWrapperComponent,
-        BasicCardDetailComponent],
+        BasicCardDetailComponent,
+        MarkdownDirective
+    ],
     entryComponents: [BasicCardDetailComponent],
     imports: [BrowserModule, FormsModule, HttpModule, RouterModule.forRoot(rootRouterConfig)],
     providers: [TrelloService, TrelloAuthGuard, SettingsService, {provide: LocationStrategy, useClass: HashLocationStrategy}],
