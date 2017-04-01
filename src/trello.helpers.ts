@@ -1,4 +1,4 @@
-import {TrelloCustomFieldType, TrelloCustomField, TrelloPluginData, TrelloBoard} from './trello.interfaces';
+import {TrelloCustomFieldType, TrelloCustomField, TrelloPluginData, TrelloBoard} from "./trello.interfaces";
 
 const TRELLO_CUSTOM_FIELDS_PLUGIN_ID = '56d5e249a98895a9797bebb9';
 
@@ -7,7 +7,7 @@ class TrelloCustomFieldDef {
     label: string;
     type: TrelloCustomFieldType;
     showOnCard: boolean;
-    options?: string[];
+    options?: any[];
 }
 
 export class TrelloCustomFieldDecoder {
@@ -23,10 +23,11 @@ export class TrelloCustomFieldDecoder {
                 id: field['id'] as string,
                 label: field['n'] as string,
                 type: field['t'] as TrelloCustomFieldType,
-                showOnCard: !!field['b'] as boolean,
-                options: field['o'] as string[],
+                showOnCard: !!field['b'],
+                options: field['o'] as any[],
             });
         }
+        console.debug('board fieldDefs', this.fieldDefs);
     }
 
     decode(cardPluginData: TrelloPluginData[]): TrelloCustomField[] {
@@ -37,8 +38,15 @@ export class TrelloCustomFieldDecoder {
         this.fieldDefs.forEach((fd) => {
             if (fd.showOnCard && fd.id in fieldsEncoded) {
                 let value = fieldsEncoded[fd.id];
-                if (fd.type == TrelloCustomFieldType.LIST)
-                    value = fd.options[value - 1];
+                if (fd.type == TrelloCustomFieldType.LIST) {
+                    let opt = fd.options.find((o) => o.id == value);
+                    value = opt ? opt.value : '?';
+                } else if (fd.type == TrelloCustomFieldType.CHECKBOX) {
+                    value = value ? 'Yes' : 'No';
+                } else if (fd.type == TrelloCustomFieldType.DATE) {
+                    if (value instanceof Date) value = value.toISOString();
+                    value = value ? value.substring(0, 10) : '-';
+                }
                 fields.push({
                     label: fd.label,
                     type: fd.type,
