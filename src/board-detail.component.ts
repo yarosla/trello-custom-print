@@ -1,9 +1,9 @@
-import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
-import {TrelloService} from './trello.service';
-import {TrelloBoard, TrelloList, TrelloCard} from './trello.interfaces';
-import {BoardSettings, SettingsService} from './settings.service';
-import {TrelloCustomFieldDecoder} from './trello.helpers';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { TrelloService } from './trello.service';
+import { TrelloBoard, TrelloCard, TrelloList } from './trello.interfaces';
+import { BoardSettings, SettingsService } from './settings.service';
+import { TrelloCustomFieldDecoder } from './trello.helpers';
 
 
 @Component({
@@ -22,15 +22,19 @@ export class BoardDetailComponent implements OnInit {
     }
 
     //noinspection JSMethodCanBeStatic
-    trackByLists(index: number, list: TrelloList) { return list.id; }
+    trackByLists(index: number, list: TrelloList) {
+        return list.id;
+    }
 
     //noinspection JSMethodCanBeStatic
-    trackByCards(index: number, card: TrelloCard) { return card.id; }
+    trackByCards(index: number, card: TrelloCard) {
+        return card.id;
+    }
 
     ngOnInit() {
         this.route.params.subscribe(params => {
             this.trello.fetchBoard(params['boardId'])
-                .subscribe((board) => {
+                .subscribe((board: TrelloBoard) => {
                     this.board = this.preProcessBoard(board);
                     this.settings = this.settingsService.loadSettings();
                     this.settings.update(this.board);
@@ -44,12 +48,12 @@ export class BoardDetailComponent implements OnInit {
 
     //noinspection JSMethodCanBeStatic
     print() {
-        window.print();
+        (window as any).print();
     }
 
     refresh() {
         this.trello.fetchBoard(this.board.id)
-            .subscribe((board) => {
+            .subscribe((board: TrelloBoard) => {
                 this.board = this.preProcessBoard(board);
                 this.settings.update(this.board);
             });
@@ -72,6 +76,6 @@ export class BoardDetailComponent implements OnInit {
 
     //noinspection JSMethodCanBeStatic
     private preProcessCard(card: TrelloCard, customFieldDecoder: TrelloCustomFieldDecoder) {
-        card.customFields = customFieldDecoder.decode(card.pluginData);
+        card.customFields = customFieldDecoder.decode(card.customFieldItems);
     }
 }

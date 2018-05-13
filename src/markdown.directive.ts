@@ -1,4 +1,4 @@
-import {Directive, ElementRef, OnChanges, SimpleChanges, Input} from '@angular/core';
+import { Directive, ElementRef, Input, OnChanges, SimpleChanges } from '@angular/core';
 import * as marked from 'marked';
 
 @Directive({
@@ -10,7 +10,7 @@ import * as marked from 'marked';
 export class MarkdownDirective implements OnChanges {
     @Input()
     private markdown: string;
-    private options: MarkedOptions;
+    private options: marked.MarkedOptions;
 
     constructor(private element: ElementRef) {
         let renderer = new marked.Renderer();
@@ -21,7 +21,7 @@ export class MarkdownDirective implements OnChanges {
             renderer.listitem = renderer.paragraph = renderer.blockquote =
                 renderer.code = renderer.heading = sameText;
         }
-        this.options = {renderer: renderer, breaks: true};
+        this.options = { renderer: renderer, breaks: true };
     }
 
     ngOnChanges(changes: SimpleChanges): void {

@@ -18,13 +18,29 @@ export interface TrelloPluginData {
 }
 
 export enum TrelloCustomFieldType {
-    TEXT, NUMBER, CHECKBOX, DATE, LIST
+    TEXT = 'text', NUMBER = 'number', CHECKBOX = 'checkbox', DATE = 'date', LIST = 'list'
 }
 
-export interface TrelloCustomField {
+export interface CalculatedCustomField {
     label: string;
     type: TrelloCustomFieldType;
     value: any;
+}
+
+export interface TrelloCustomFieldDefinition {
+    id: string;
+    name: string;
+    pos: number;
+    type: TrelloCustomFieldType;
+    display: { cardFront: boolean };
+    options?: { id: string, pos: number, color: string, value: { text: string } }[];
+}
+
+export interface TrelloCustomFieldItem {
+    id: string;
+    idCustomField: string;
+    value?: { text?: string, number?: string, checked?: string, date?: string };
+    idValue?: string; // for LIST type
 }
 
 export interface TrelloCard {
@@ -38,7 +54,8 @@ export interface TrelloCard {
     labels?: Object[];
     checklists?: TrelloChecklist[];
     pluginData?: TrelloPluginData[];
-    customFields?: TrelloCustomField[];
+    customFields?: CalculatedCustomField[];
+    customFieldItems?: TrelloCustomFieldItem[];
 }
 
 export interface TrelloList {
@@ -62,4 +79,5 @@ export interface TrelloBoard {
     lists?: TrelloList[];
     url?: string;
     pluginData?: TrelloBoardPluginData[];
+    customFields?: TrelloCustomFieldDefinition[];
 }

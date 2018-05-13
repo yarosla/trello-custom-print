@@ -34,15 +34,14 @@ About privacy: This is single page web app hosted on GitHub without any server s
 
 ### Building
 
-    npm install -g typescript webpack
     npm install
 
 Get your Trello API key from here: https://trello.com/app-key
 
 Debug:
 
-    API_KEY=xxx webpack -d --watch
+    API_KEY=xxx npm run watch
 
 Production:
 
-    API_KEY=xxx webpack -p
+    API_KEY=xxx npm run release

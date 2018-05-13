@@ -8,9 +8,9 @@ $font-family-base: $font-family-sans-serif;
 // generate special 'print' grid class
 
 @mixin make-print-grid-columns {
-  $list: "";
+  $list: null;
   @for $i from 1 through $grid-columns {
-    $list: "#{$list}, .col-print-#{$i}";
+    $list: append($list, unquote(".col-print-#{$i}"), comma);
   }
   #{$list} {
     position: relative;
