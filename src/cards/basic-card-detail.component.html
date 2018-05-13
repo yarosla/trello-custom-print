@@ -12,9 +12,12 @@
       </ul>
     </div>
   </div>
-  <div *ngIf="settings?.showCustomFields" class="custom-fields">
+  <div *ngIf="settings?.showCustomFields && card.customFields.length" class="custom-fields">
     <span class="custom-field" *ngFor="let field of card.customFields">
       {{field.label}} {{field.value}}
     </span>
+  </div>
+  <div *ngIf="settings?.showDueDates && card.due" class="due-date" [class.due-date-complete]="card.dueComplete">
+    Due: {{card.due | slice:0:10}}
   </div>
 </div>

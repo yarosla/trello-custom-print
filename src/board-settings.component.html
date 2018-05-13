@@ -10,24 +10,27 @@
         <option>6</option>
       </select>
     </div>
-    <div class="checkbox" style="margin-left:20px;">
+    <div class="checkbox setting">
       <label><input type="checkbox" [(ngModel)]="settings.showBoardTitle" name="showBoardTitle"> Show board title</label>
     </div>
-    <div class="checkbox" style="margin-left:20px;">
+    <div class="checkbox setting">
       <label><input type="checkbox" [(ngModel)]="settings.showDesc" name="showDesc"> Show descriptions</label>
     </div>
-    <div class="checkbox" style="margin-left:20px;">
+    <div class="checkbox setting">
       <label><input type="checkbox" [(ngModel)]="settings.showChecklists" name="showChecklists"> Show checklists</label>
     </div>
-    <div class="checkbox" style="margin-left:20px;">
+    <div class="checkbox setting">
       <label><input type="checkbox" [(ngModel)]="settings.showCustomFields" name="showCustomFields"> Show custom fields</label>
+    </div>
+    <div class="checkbox setting">
+      <label><input type="checkbox" [(ngModel)]="settings.showDueDates" name="showCustomFields"> Show due dates</label>
     </div>
   </div>
   <div>
     <div class="form-group">
       <label>Lists:</label>
     </div>
-    <div class="checkbox" style="margin-left:10px;" *ngFor="let list of board.lists">
+    <div class="checkbox list" *ngFor="let list of board.lists">
       <label><input type="checkbox" [(ngModel)]="settings.showList[list.id]" name="showList-{{list.id}}"> {{list.name}}</label>
     </div>
   </div>

@@ -51,6 +51,8 @@ export interface TrelloCard {
     name: string;
     url: string;
     desc: string;
+    due: string;
+    dueComplete: boolean;
     labels?: Object[];
     checklists?: TrelloChecklist[];
     pluginData?: TrelloPluginData[];

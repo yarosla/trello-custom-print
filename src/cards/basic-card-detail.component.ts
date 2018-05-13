@@ -1,7 +1,7 @@
-import {Component, Input} from '@angular/core';
-import {TrelloCard} from '../trello.interfaces';
-import {CardDetailComponent} from '../card-detail-wrapper.component';
-import {BoardSettings} from '../settings.service';
+import { Component, Input } from '@angular/core';
+import { TrelloCard } from '../trello.interfaces';
+import { CardDetailComponent } from '../card-detail-wrapper.component';
+import { BoardSettings } from '../settings.service';
 
 @Component({
     selector: 'basic-card-detail',
@@ -21,7 +21,9 @@ import {BoardSettings} from '../settings.service';
                     margin-right:10px; background-color:#fafafa; 
                     padding:2px 4px;
                 }
-            `]
+                .due-date {font-size:80%;}
+                .due-date-complete {text-decoration: line-through;}
+    `]
 })
 export class BasicCardDetailComponent implements CardDetailComponent {
     @Input()

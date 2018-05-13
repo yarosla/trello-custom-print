@@ -8,6 +8,12 @@ import 'rxjs/add/operator/debounceTime';
     selector: 'board-settings',
     templateUrl: './board-settings.component.html',
     styles: [`
+        .checkbox.setting {
+            margin-left: 20px;
+        }
+        .checkbox.list {
+            margin-left: 10px;
+        }
             `]
 })
 export class BoardSettingsComponent implements AfterViewInit {

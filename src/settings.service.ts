@@ -9,6 +9,7 @@ export class BoardSettings {
     showDesc: boolean = true;
     showChecklists: boolean = true;
     showCustomFields: boolean = true;
+    showDueDates: boolean = true;
     showList: {[key: string]: boolean} = {};
     cardType: Type<CardDetailComponent> = BasicCardDetailComponent;
 
